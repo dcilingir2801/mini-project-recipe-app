@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import RecipesCard from "../pages/RecipesCard";
 import recipesData from "../assets/recipes.json";
 
-function List() {
-  const [recipes, setRecipes] = useState(recipesData);
+function List({ recipes, setRecipes }) {
   const [editableRecipe, setEditableRecipe] = useState(null);
 
   const handleDelete = (currentId) => {
@@ -20,7 +19,7 @@ function List() {
     const { name, value } = e.target;
     setEditableRecipe({
       ...editableRecipe,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -41,25 +40,60 @@ function List() {
         <div key={recipe.id}>
           {editableRecipe && editableRecipe.id === recipe.id ? (
             <div>
-              <input type="text" name="name" value={editableRecipe.name} onChange={handleInputChange} />
-              <input type="text" name="calories" value={editableRecipe.calories} onChange={handleInputChange} />
-              <input type="text" name="servings" value={editableRecipe.servings} onChange={handleInputChange} />
-              <input type="text" name="instructions" value={editableRecipe.instructions} onChange={handleInputChange} />
-              <button type="button" onClick={handleSave}>Save</button>
+              <input
+                type="text"
+                name="name"
+                value={editableRecipe.name}
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="calories"
+                value={editableRecipe.calories}
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="servings"
+                value={editableRecipe.servings}
+                onChange={handleInputChange}
+              />
+              <input
+                type="text"
+                name="instructions"
+                value={editableRecipe.instructions}
+                onChange={handleInputChange}
+              />
+              <button type="button" onClick={handleSave}>
+                Save
+              </button>
             </div>
           ) : (
             <div>
-              <Link key={`/recipes/{recipe.id}`}><RecipesCard {...recipe}/>
               <div className="recipe-card">
-                <h3>{recipe.name}</h3>
-                <img src={recipe.image} alt={recipe.name} />
-                <p>Calories: {recipe.calories}</p>
-                <p>Servings: {recipe.servings}</p>
-                <p>Instructions: {recipe.instructions}</p>
-                <button id="button" type="button" onClick={() => handleDelete(recipe.id)}>Delete</button>
-                <button id="button2" type="button" onClick={() => handleEdit(recipe.id)}>Edit</button>
+                <Link to={"/recipes/" + recipe.id}>
+                  <RecipesCard />
+                  <h3>{recipe.name}</h3>
+                  <img src={recipe.image} alt={recipe.name} />
+                  <p>Calories: {recipe.calories}</p>
+                  <p>Servings: {recipe.servings}</p>
+                  <p>Instructions: {recipe.instructions}</p>
+                </Link>
+                <button
+                  id="button"
+                  type="button"
+                  onClick={() => handleDelete(recipe.id)}
+                >
+                  Delete
+                </button>
+                <button
+                  id="button2"
+                  type="button"
+                  onClick={() => handleEdit(recipe.id)}
+                >
+                  Edit
+                </button>
               </div>
-              </Link>
             </div>
           )}
         </div>

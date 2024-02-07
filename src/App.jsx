@@ -8,7 +8,12 @@ import RecipesCard from "./pages/RecipesCard";
 import About from "./pages/AboutPage";
 import NotFound from "./pages/NotFoundPage";
 import Form from "./components/Form";
+import recipesData from "./assets/recipes.json";
+import { useState } from "react";
+
 function App() {
+  const [recipes, setRecipes] = useState(recipesData);
+
   return (
     <>
       <NavBar />
@@ -16,11 +21,17 @@ function App() {
       <Footer />
 
       <Routes>
-        <Route path="/" element={<DashboardPage />}></Route>
+        <Route
+          path="/"
+          element={<DashboardPage recipes={recipes} setRecipes={setRecipes} />}
+        ></Route>
         <Route path="*" element={<NotFound />} />
-        <Route path='/recipes/:recipeId' element={<RecipesCard />}></Route>
+        <Route path="/recipes/:recipeId" element={<RecipesCard />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route path="/addrecipe" element={<Form />}></Route>
+        <Route
+          path="/addrecipe"
+          element={<Form recipes={recipes} setRecipes={setRecipes} />}
+        ></Route>
       </Routes>
     </>
   );

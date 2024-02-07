@@ -2,8 +2,7 @@ import { useState } from "react";
 import recipesData from "../assets/recipes.json";
 import List from "../components/List";
 
-function Form() {
-  const [recipes, setRecipes] = useState(recipesData);
+function Form({ recipes, setRecipes }) {
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
   const [image, setImage] = useState("");
@@ -19,6 +18,8 @@ function Form() {
       servings: servings,
       instructions: instructions,
     };
+
+    console.log(newRecipe);
 
     setRecipes([...recipes, newRecipe]);
 
@@ -36,7 +37,7 @@ function Form() {
         <h3>Add a Recipe</h3>
         <div id="main-container">
           <label>
-            Recipe Name
+            Name:
             <input
               id="inp"
               name="name"
@@ -51,7 +52,7 @@ function Form() {
           </label>
 
           <label>
-            Image of the dish
+            Image of the dish:
             <input
               id="inp"
               name="image"
@@ -66,7 +67,7 @@ function Form() {
           </label>
 
           <label>
-            Calories
+            Calories:
             <input
               id="inp"
               name="phone"
@@ -81,7 +82,7 @@ function Form() {
           </label>
 
           <label>
-            Servings
+            Servings:
             <input
               id="inp"
               name="servings"
@@ -95,7 +96,7 @@ function Form() {
             />
           </label>
           <label>
-            Recipe Instructions
+            Instructions:
             <input
               id="inp"
               name="intructions"
